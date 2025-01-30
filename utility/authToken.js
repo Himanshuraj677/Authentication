@@ -15,5 +15,4 @@ const verifyToken = (token) => {
     }
 };
 
-
 export { createToken, verifyToken };
