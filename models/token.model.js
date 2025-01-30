@@ -22,8 +22,12 @@ const Token = sequelize.define(
       allowNull: false,
     },
     type: {
-      type: DataTypes.ENUM("verify", "reset"),
+      type: DataTypes.ENUM("verify", "reset", "auth"),
       allowNull: false,
+    },
+    verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {

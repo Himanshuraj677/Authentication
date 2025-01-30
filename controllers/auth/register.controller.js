@@ -1,10 +1,10 @@
 import validator from 'validator';
-import {User} from '../../models/association.js';
 import { Op } from 'sequelize';
 import { hashPassword } from '../../utility/password.js';
-import { createToken } from '../../utility/authToken.js';
 import sendMail from '../../utility/sendMail.js';
-import generateToken from '../../utility/generateToken.js';
+import email_verify_template from '../../mail_template/email_verify_template.js';
+import RegisterUser from '../../utility/user_register.js';
+import User from '../../models/user.model.js';
 
 const Register = async (req, res) => {
   const {name, email, username, password} = req.body;
@@ -16,8 +16,8 @@ const Register = async (req, res) => {
     return res.status(400).json({message: 'Name must be between 3 and 50 characters'});
   }
 
-  if (!validator.isAlpha(name)) {
-    return res.status(400).json({message: 'Name must only contain letters'});
+  if (!/^[A-Za-z]+( [A-Za-z]+)*$/.test(name.trim())) {
+    return res.status(400).json({ message: 'Name must only contain letters and a single space between words' });
   }
 
   if (!validator.isEmail(email)) {
@@ -47,14 +47,12 @@ const Register = async (req, res) => {
 
   const hashedPassword = await hashPassword(password);
   try {
-    const user = await User.create({name, email, username, password_hash: hashedPassword});
-    const authToken = createToken(user.id);
+    const {_, authToken, verifyToken} = await RegisterUser(email, hashedPassword, name, username);
+    sendMail(email, email_verify_template(verifyToken));
     res.cookie('authToken', authToken, {
       httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1000
     });
-    const verifyToken = generateToken();
-    sendMail(email, verifyToken);
     return res.status(201).json({message: 'User created successfully'});
   } catch (error) {
     return res.status(500).json({message: 'An error occurred while creating the user'});
