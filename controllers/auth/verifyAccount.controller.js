@@ -8,7 +8,7 @@ const VerifyAccount = async(req, res) => {
   }
 
   try {
-    const token = await Token.findOne({where: {token: verifyToken}});
+    const token = await Token.findOne({where: {token: verifyToken, type: 'verify'}});
     if (!token) {
       return res.status(400).json({message: 'Invalid token'});
     }
