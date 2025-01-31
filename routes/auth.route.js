@@ -11,6 +11,6 @@ router.get('/login', Login);
 router.post('/register', Register);
 router.post('/forget-password', ForgetPassword);
 router.post('/reset-password', ResetPassword);
-router.post('/verify-account', VerifyAccount);
+router.post('/verify-account/:verifyToken', VerifyAccount);
 
 export default router;

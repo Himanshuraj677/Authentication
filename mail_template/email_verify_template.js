@@ -1,7 +1,6 @@
 const email_verify_template = (verify_token) => {
   const frontend_url = process.env.FRONTEND_URL;
   const VERIFY_LINK = `${frontend_url}/verify-email/${verify_token}`;
-  console.log(VERIFY_LINK);
   return {
     text: `Hi,\n\nThank you for signing up! Please verify your email by clicking the link below:\n\n${VERIFY_LINK}\n\nIf you did not request this, please ignore this email.\n\nThis link will expire in 24 hours.`,
     html: `
