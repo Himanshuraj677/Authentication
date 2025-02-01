@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const email_verify_template = (verify_token) => {
   const frontend_url = process.env.FRONTEND_URL;
   const VERIFY_LINK = `${frontend_url}/verify-email/${verify_token}`;
