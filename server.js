@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import AuthRoute from './routes/auth.route.js';
 import { sequelize } from './config/db.config.js';
 import cookieParser from 'cookie-parser';
+import ErrorHandler from './middleware/errorHandler.js';
 
 dotenv.config();
 
@@ -17,6 +18,9 @@ app.get('/api/test', (req, res) => {
   res.send('Hello World');
 });
 app.use('/api/auth', AuthRoute);
+
+
+app.use(ErrorHandler);
 
 
 sequelize.sync({ force: true })
