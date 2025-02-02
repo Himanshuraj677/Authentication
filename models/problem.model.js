@@ -22,7 +22,7 @@ const Problem = sequelize.define(
       allowNull: false,
     },
     tags: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSON,
       allowNull: false,
     },
     optimized_code: {
