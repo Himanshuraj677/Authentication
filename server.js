@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import AuthRoute from './routes/auth.route.js';
+import ProblemRoute from './routes/problem.route.js';
 import { sequelize } from './config/db.config.js';
 import cookieParser from 'cookie-parser';
 import ErrorHandler from './middleware/errorHandler.js';
@@ -18,6 +19,7 @@ app.get('/api/test', (req, res) => {
   res.send('Hello World');
 });
 app.use('/api/auth', AuthRoute);
+app.use('/api/problem', ProblemRoute);  
 
 
 app.use(ErrorHandler);
