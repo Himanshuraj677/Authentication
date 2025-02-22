@@ -1,6 +1,8 @@
 import express from "express";
 import CreateProblem from "../controllers/problems/createProblem.controller.js";
+import AddTestCase from "../controllers/problems/addTestCase.controller.js";
 import AuthMiddleware from "../middleware/userAuth.middleware.js";
+import upload from "../config/upload.config.js";
 
 const router = express.Router();
 
@@ -14,7 +16,7 @@ const router = express.Router();
 router.post("/", AuthMiddleware, CreateProblem);
 // router.put("/:id", updateProblem);
 // router.delete("/:id", deleteProblem);
-// router.post("/:id/testcases", addTestCases);
+router.post("/:id/testcases", upload.single('file'), AuthMiddleware, AddTestCase);
 // router.get("/:id/testcases", getTestCases);
 
 export default router;

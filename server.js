@@ -25,7 +25,7 @@ app.use('/api/problem', ProblemRoute);
 app.use(ErrorHandler);
 
 
-sequelize.sync({ force: true })
+sequelize.sync(/*{ force: true }*/)
   .then(() => {
     console.log('Database synchronized successfully!');
   })
