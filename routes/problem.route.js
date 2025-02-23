@@ -4,6 +4,7 @@ import AddTestCase from "../controllers/problems/addTestCase.controller.js";
 import AuthMiddleware from "../middleware/userAuth.middleware.js";
 import upload from "../config/upload.config.js";
 import updateProblem from "../controllers/problems/updateProblem.controller.js";
+import UpdateTestCase from "../controllers/problems/updateTestCase.controller.js";
 
 const router = express.Router();
 
@@ -18,6 +19,7 @@ router.post("/", AuthMiddleware, CreateProblem);
 router.put("/:id",AuthMiddleware, updateProblem);
 // router.delete("/:id", deleteProblem);
 router.post("/:id/testcases", upload.single('file'), AuthMiddleware, AddTestCase);
+router.put("/:id/testcases", upload.single('file'), AuthMiddleware, UpdateTestCase);
 // router.get("/:id/testcases", getTestCases);
 
 export default router;
